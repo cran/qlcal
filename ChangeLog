@@ -1,0 +1,20 @@
+2021-12-07  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Release 0.0.1
+
+2021-11-30  Dirk Eddelbuettel  <edd@debian.org>
+
+	* README.md: Small edits
+
+2021-11-27  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/ql/qldefines.hpp: Updated from QuantLib
+	* src/ql/time/calendar.cpp: Ditto
+
+2021-11-26  Dirk Eddelbuettel  <edd@debian.org>
+
+	* README.md: Expanded
+
+2021-11-22  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION: Initial minimal version
