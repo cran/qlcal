@@ -1,3 +1,46 @@
+2023-01-10  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll micro version and date
+
+	* src/ql/time/calendars/unitedkingdom.cpp: Add King Charles III
+	Corononation Bank Holiday
+	* src/ql/time/calendars/unitedkingdom.hpp: Updated
+	* src/ql/time/calendars/australia.cpp: Queen Elizabeth Day of Morning
+	* src/ql/time/calendars/australia.hpp: Idem
+	* src/ql/time/calendars/china.cpp: Add Chinese 2023 holidays
+	* src/ql/time/calendars/southafrica.cpp: Christmas 2022 update
+	* src/ql/time/calendars/southafrica.hpp: Idem
+	* src/ql/time/calendars/unitedstates.hpp: Removed one deprecated ctor
+
+2022-12-10  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll micro version and date
+
+	* src/dates.cpp (advanceDate): Generalize to wrapper to cal.advance()
+	by supporting new arguments for time unit and end-of-month
+	* src/utils.cpp: Two new helpers to parse unit and bdc from text
+	* man/advanceDate.Rd: Updated documentation
+	* src/RcppExports.cpp: Updated
+	* R/RcppExports.R: Idem
+	* inst/include/qlcal_RcppExports.h: Idem
+	* inst/include/qlcal_declarations.h: Idem
+	* tests/calendars.R: Adjusted test
+
+2022-12-07  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/dates.cpp (advanceDate): Add new parameter to select a business
+	day convention (via an integer, mapper from character could be added)
+	* man/advanceDate.Rd: Updated documentation
+	* src/RcppExports.cpp: Updated
+	* R/RcppExports.R: Idem
+	* inst/include/qlcal_RcppExports.h: Idem
+
+	* tests/calendars.R: Add simple tests
+
+2022-11-10  Dirk Eddelbuettel  <edd@debian.org>
+
+	* .github/workflows/ci.yaml (jobs): Update to actions/checkout@v3
+
 2022-10-19  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Release 0.0.3
