@@ -1,3 +1,27 @@
+2023-10-21  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version): Release 0.0.8
+
+2023-10-20  Dirk Eddelbuettel  <edd@debian.org>
+
+	* README.md: Add discussion of implicit C++14 use via R 4.2.0 or
+	newer, and detail how to build for older R if needed
+	* DESCRIPTION (Depends): Add 'R (>= 4.2.0)'
+	* src/Makevars (CXX_STD): Commented-out
+	* src/Makevars.win (CXX_STD): Ditto
+
+	* src/calendars.cpp: Sync with QuantLib 1.32
+	* src/calendar/southkorea.cpp: Idem
+	* src/patterns/observable.{c,h}pp: Idem
+
+2023-07-20  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll micro version and date
+
+	* src/calendars.cpp: Correct typo in dispatch for 'Australia/ASX'
+
+	* .gitignore: Add nested source directories
+
 2023-07-19  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Release 0.0.7
@@ -11,6 +35,8 @@
 
 	* src/calendars.cpp: Add support for UnitedStates/SOFR
 	* R/calendars.R: Idem
+
+	* demo/allUScalendars.R (makeHol): Add SOFR to holiday demo
 
 2023-05-24  Dirk Eddelbuettel  <edd@debian.org>
 
