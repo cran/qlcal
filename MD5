@@ -1,11 +1,11 @@
-7a7eff522d8b40b5e36f1aa2aa4c96b5 *ChangeLog
-2222d8a12daf6ff4cd31b6c6e3dc7033 *DESCRIPTION
+d62a85c9a2a56e94b94aa3569154e611 *ChangeLog
+7fe82f27c8564b38cdb44fc387e3a1bd *DESCRIPTION
 193393020d980fb08906558e18f4b2a2 *NAMESPACE
 4c41e1ddc3f458e4e0402f129c707163 *R/RcppExports.R
 5f8f8b7b233e7c018784eaf409562ab5 *R/calendars.R
 73690438a07ba296dc87f35f20bd33bb *R/dates.R
 76c573045a786bf07e94a6f61af2770c *README.md
-e06e17775eeb1febc50ef5201d388be2 *build/partial.rdb
+521f61505d172b98d4f12351ca58cd6d *build/partial.rdb
 d0ad2b7c8669b8328a9dbe39d406b124 *cleanup
 5a04e89e816daea50eb5b25b98dafc41 *configure
 5a04e89e816daea50eb5b25b98dafc41 *configure.win
@@ -13,7 +13,7 @@ e01465423bc2d88b8c92c7dd6d9c8fdc *demo/00Index
 49bdbe036c4dea6bf3a90da6aca3122e *demo/allUScalendars.R
 3bb63f3c7cc2d641bfc47420787b47a0 *inst/AUTHORS
 a569a84ea46bbc872bed84d6ebf835e1 *inst/COPYRIGHTS
-72b1a5343809096326f07a0ac859c1ad *inst/NEWS.Rd
+2d893840df37dda7076f59dece7db58c *inst/NEWS.Rd
 aa33240a762a7b2c5c5af2711efb825c *inst/include/qlcal.h
 73b86629075005c841f400556efb2c4c *inst/include/qlcal_RcppExports.h
 36ee957428ed34c8643c9fbcf337f65b *inst/include/qlcal_as_wrap.h
@@ -54,7 +54,7 @@ da1a0c01b829e51ba240d2ee6f17e4ab *src/ql/patterns/observable.hpp
 b7818182af02c5f95432097d959e378f *src/ql/time/all.hpp
 630741032135ac92d9237169596fe347 *src/ql/time/businessdayconvention.cpp
 932783e84c3f3266c60aa1815548d9f8 *src/ql/time/businessdayconvention.hpp
-2b64df380d032cc017b995fdd2ddee28 *src/ql/time/calendar.cpp
+7d1dc177642a1facab83bb57e7457963 *src/ql/time/calendar.cpp
 6f335e70d4650e1a35f87533f8adc02e *src/ql/time/calendar.hpp
 037bb619cc453026ff6212792d2801c7 *src/ql/time/calendars/all.hpp
 e2bcb7ee51b3c4585aae653d1e91803b *src/ql/time/calendars/argentina.cpp
@@ -67,8 +67,8 @@ c0f756295e9b1a8022ef9500c9af6c43 *src/ql/time/calendars/austria.cpp
 e05ee6e590ed0fa5c07ed415100ae02d *src/ql/time/calendars/bespokecalendar.hpp
 a355ae79c3426e4e46e86f0d5f5835de *src/ql/time/calendars/botswana.cpp
 f6ce68d1e2f5b3b2924948f39cb2ee46 *src/ql/time/calendars/botswana.hpp
-416b8b5e16e5a5dfd34cf43cee2f31e5 *src/ql/time/calendars/brazil.cpp
-b669d69348fcaff838e085957a4c6fd9 *src/ql/time/calendars/brazil.hpp
+7834d08141dbb0428534dfa925ecb7e3 *src/ql/time/calendars/brazil.cpp
+921a0ccfa0608aa4df2514edda774928 *src/ql/time/calendars/brazil.hpp
 6dc541f9d9fcaeb7ed92272be0e86016 *src/ql/time/calendars/canada.cpp
 fb7148db35b3388d604f94ccabc8e8b3 *src/ql/time/calendars/canada.hpp
 d20945527530fdd4ae4c906dc59183d3 *src/ql/time/calendars/chile.cpp
@@ -91,7 +91,7 @@ cced6f1346cec8ce3638d0dc66d17a7f *src/ql/time/calendars/hungary.cpp
 fa4c77ce940f408a1141b3dd410fc4e6 *src/ql/time/calendars/hungary.hpp
 544eba8e0a86589e9785de458e0bf6a3 *src/ql/time/calendars/iceland.cpp
 d3d519e75536410fc5aa25b8fe69f08f *src/ql/time/calendars/iceland.hpp
-2c895cf1c11d3299253c9003c6abe652 *src/ql/time/calendars/india.cpp
+1261dda0eff4f581d56cd27365428996 *src/ql/time/calendars/india.cpp
 cf7ec44d9f492fd38a5ad049cb974d93 *src/ql/time/calendars/india.hpp
 dbe5ea3f961a2e84a4290f39d16b83d5 *src/ql/time/calendars/indonesia.cpp
 dd9ebab79104be474bf40bf2726b8239 *src/ql/time/calendars/indonesia.hpp
@@ -118,11 +118,11 @@ f5eadedcf62394d46abb8e177bd9ef02 *src/ql/time/calendars/russia.cpp
 8133d0e192592d5f8cd7fc0e33a5f7b1 *src/ql/time/calendars/russia.hpp
 10d2befe0f033a303c78029d4262e10f *src/ql/time/calendars/saudiarabia.cpp
 73101c7e02dfaefe12c7c2ed22953e2a *src/ql/time/calendars/saudiarabia.hpp
-d9f9b64f3569a8e4328d0deb2f14fa52 *src/ql/time/calendars/singapore.cpp
-abae61fc1ea4ebe2e40f1a062fd44bfb *src/ql/time/calendars/singapore.hpp
+a7236fe0ca478f80aca4560f0b0bb5f0 *src/ql/time/calendars/singapore.cpp
+c0f92b786f16e9aa3e0bcea345e29aba *src/ql/time/calendars/singapore.hpp
 cbff7440c1a281f1641ab6ebfbbd96b5 *src/ql/time/calendars/slovakia.cpp
 b18415f9c892b58dbca58746803021a9 *src/ql/time/calendars/slovakia.hpp
-3604f79545c7ea8891f5c61833a44386 *src/ql/time/calendars/southafrica.cpp
+01b154a5b1e6b06c56ad15cf314d6516 *src/ql/time/calendars/southafrica.cpp
 15a42ec4e668547cbccff6666a8fce8d *src/ql/time/calendars/southafrica.hpp
 c1628677634a68e5d2916cbe3a085fba *src/ql/time/calendars/southkorea.cpp
 5532eea7926b1e196fedcc6144242a0d *src/ql/time/calendars/southkorea.hpp
@@ -134,7 +134,7 @@ f48466c9edb8da6d4623cb5b85174aa5 *src/ql/time/calendars/taiwan.cpp
 5264414b3348aad2a06ba1a166f9c8e8 *src/ql/time/calendars/taiwan.hpp
 b62237ba3cec74feca3af181e8fb2414 *src/ql/time/calendars/target.cpp
 fdafc1942943c88e0720c823c4c227a5 *src/ql/time/calendars/target.hpp
-a285977295e73f3610298795278919a6 *src/ql/time/calendars/thailand.cpp
+bc2e96260134cdf21bf08cdce0ab5073 *src/ql/time/calendars/thailand.cpp
 6bc78176979fbdcfce882e9dbb572250 *src/ql/time/calendars/thailand.hpp
 80c986f7c849a4a29242864e91b59746 *src/ql/time/calendars/turkey.cpp
 7f7ec06eaed49957ebb41f8615b25730 *src/ql/time/calendars/turkey.hpp
@@ -142,7 +142,7 @@ a285977295e73f3610298795278919a6 *src/ql/time/calendars/thailand.cpp
 38ff394e82790bd12881b82ca044a35a *src/ql/time/calendars/ukraine.hpp
 449dbd3151dce113a06fa2792a858fca *src/ql/time/calendars/unitedkingdom.cpp
 405a5cc6ca347016c56c32f163443ea3 *src/ql/time/calendars/unitedkingdom.hpp
-e1cb67cc716b411a315c874af5d97de3 *src/ql/time/calendars/unitedstates.cpp
+ad6959f09d3149115b767fe6db84a212 *src/ql/time/calendars/unitedstates.cpp
 886dbe907fed6f90ed370fc73c3499e7 *src/ql/time/calendars/unitedstates.hpp
 d286e62ab7e69d74cf0e16559ed905c4 *src/ql/time/calendars/weekendsonly.cpp
 11068c63a0335da7306ea8a82ac44968 *src/ql/time/calendars/weekendsonly.hpp
