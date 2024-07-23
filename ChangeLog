@@ -1,3 +1,27 @@
+2024-07-23  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Release 0.0.12
+
+2024-07-13  Dirk Eddelbuettel  <edd@debian.org>
+
+	* README.md: Add link to introductory 'Holidays in QuantLib' piece
+
+2024-07-12  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/ql/time/calendars/brazil.?pp: Updated from QuantLib 1.35 (rc)
+
+2024-07-10  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll micro version and date
+
+	* src/ql/time/calendars/chile.?pp: Updated from QuantLib 1.35 (rc)
+	* src/ql/time/calendars/india.?pp: Idem
+	* src/ql/time/calendars/unitedstates.cpp: Idem
+
+2024-05-19  Dirk Eddelbuettel  <edd@debian.org>
+
+	* README.md: Use tinyverse.netlify.app for dependency badge
+
 2024-04-27  Dirk Eddelbuettel  <edd@debian.org>
 
  	* DESCRIPTION (Version, Date): Release 0.0.11

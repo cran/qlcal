@@ -6,7 +6,7 @@
 [![Last Commit](https://img.shields.io/github/last-commit/qlcal/qlcal-r)](https://github.com/qlcal/qlcal-r)
 [![CRAN](https://www.r-pkg.org/badges/version/qlcal)](https://cran.r-project.org/package=qlcal)
 [![r-universe](https://qlcal.r-universe.dev/badges/qlcal)](https://qlcal.r-universe.dev/qlcal)
-[![Dependencies](https://tinyverse.netlify.com/badge/qlcal)](https://cran.r-project.org/package=qlcal)
+[![Dependencies](https://tinyverse.netlify.app/badge/qlcal)](https://cran.r-project.org/package=qlcal)
 [![Downloads](https://cranlogs.r-pkg.org/badges/qlcal?color=brightgreen)](https://www.r-pkg.org/pkg/qlcal)
 
 `qlcal` brings the calendaring functionality from the [QuantLib](https://www.quantlib.org) project to R.
@@ -168,6 +168,13 @@ Note that the package requires C++14 or newer due to the `BH` (_i.e._ Boost) use
 set `CXX_STD` we switched to requested `R (>= 4.2.0)` where this requirement is implicitly
 satisfied.  On an older R version, the `configure` scripts uncomments `CXX_STD = CXX14` in
 `src/Makevars` (or `src/Makevars.win`).
+
+### See Also
+
+Luigi Ballabio describe [Holidays in
+QuantLib](https://www.implementingquantlib.com/2024/07/holidays-in-quantlib.html)
+in an introductory article at the [Implementing
+QuantLib](https://www.implementingquantlib.com) blog.
 
 ### Authors
 
