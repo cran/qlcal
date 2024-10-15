@@ -1,3 +1,20 @@
+2024-10-15  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Release 0.0.13
+
+2024-10-07  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll micro version and date
+
+	* src/ql/time/calendars/poland.?pp: Updated from QuantLib 1.36 (rc)
+	* src/ql/time/calendars/southkorea.cpp: Idem
+
+	* src/ql/*: Small updates from 1.36 (rc) to nine more files
+
+2024-09-03  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Authors@R): Added
+
 2024-07-23  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Release 0.0.12
