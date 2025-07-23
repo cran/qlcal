@@ -1,3 +1,24 @@
+2025-07-23  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Release 0.0.16
+
+	* src/ql/utilities/null.hpp: Updated from QuantLib 1.39
+
+	* configure: Add a compiler flag hint to console
+
+2025-07-08  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll micro version and date
+
+	* src/Makevars.in: Adjust for QL 1.39 via DQL_USE_STD_OPTIONAL
+	* src/Makevars.win.in: Idem
+
+	* src/ql/errors.cpp: Updated from QuantLib 1.39 (rc)
+	* src/ql/optional.hpp: Idem
+	* src/ql/time/calendar.cpp: Idem
+	* src/ql/time/calendars/israel.?pp: Idem
+	* src/ql/time/dat.cpp: Idem
+
 2025-04-23  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Release 0.0.15
