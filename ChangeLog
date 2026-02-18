@@ -1,3 +1,114 @@
+2026-02-18  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Release 0.1.0
+
+2026-02-15  Dirk Eddelbuettel  <edd@debian.org>
+
+	* README.md: Update discussion and examples with getCalendar() use;
+	reference ChangeLog and NEWS for currentness regarding QuantLib
+
+2026-02-13  Dirk Eddelbuettel  <edd@debian.org>
+
+	* tests/calendars.R: Add simple tests for calendar objects using NYSE
+	and TSX calendars, and July 1 (Canada Day) and July 4 for comparison
+
+2026-02-11  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/dates.cpp (businessDaysBetween,getHolidays,getBusinessDays):
+	Support optional calendar
+	* man/businessDaysBetween.Rd: Updated
+	* man/getHolidays.Rd: Idem
+	* src/RcppExports.cpp: Idem
+	* R/RcppExports.R: Idem
+	* inst/include/qlcal_RcppExports.h: Idem
+
+2026-02-10  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/xptr.cpp (adjust_cpp, advanceUnits_cpp): Support optional calendar
+	* man/adjust.Rd: Updated
+	* man/advanceUnits.Rd: Idem
+	* R/dates.R: Idem
+	* src/RcppExports.cpp: Regenerated
+	* R/RcppExports.R: Idem
+	* inst/include/qlcal_RcppExports.h: Idem
+
+2026-02-09  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/xptr.cpp (getEndOfMonth): Support optional calendar
+	* man/getEndOfMonth.Rd: Updated
+	* src/RcppExports.cpp: Regenerated
+	* R/RcppExports.R: Idem
+	* inst/include/qlcal_RcppExports.h: Idem
+
+2026-02-08  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/xptr.cpp (getCalendar): Simplify removing a helper function,
+	cross-reference `setCalendar`, update example
+	* src/dates.cpp (setCalendar): Reference `getCalendar`, update docs
+	* man/getCalendar.Rd: Updated
+	* man/setCalendar.Rd: Idem
+	* src/dates.cpp (isEndOfMonth): Support optional dates and calendar
+	* src/dates.cpp (advanceDate): Support optional calendar
+	* src/RcppExports.cpp: Regenerated
+	* R/RcppExports.R: Idem
+	* inst/include/qlcal_RcppExports.h: Idem
+	* man/advanceDate.Rd: Updated documentation
+	* man/isEndOfMonth.Rd: Idem
+
+2026-02-07  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/dates.cpp (isHoliday,isWeekend): Extend generalization
+	(createDatevector,getCalendarInstance): Factor out helper functions
+	* src/RcppExports.cpp: Regenerated
+	* R/RcppExports.R: Idem
+	* inst/include/qlcal_RcppExports.h: Idem
+	* man/isHoliday.Rd: Updated documentation
+
+2026-02-06  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/xptr.cpp (getCalendar): Renamed from getXPtr, added
+	documentation
+	* man/getCalendar.Rd: New documentation
+	* man/getName.Rd: Updated documentation
+	* man/isBusinessDay.Rd: Idem
+	* src/dates.cpp (isBusinessDay): Generalized making date vector
+	optional using current date, also allow calendar external pointer
+	* src/RcppExports.cpp: Regenerated
+	* R/RcppExports.R: Idem
+	* inst/include/qlcal_RcppExports.h: Idem
+	* src/Makevars.win: Add xptr.cpp
+
+2026-02-05  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/xptr.cpp: Initial proof of concept use of XPtr
+	* src/RcppExports.cpp: Regenerated
+	* R/RcppExports.R: Idem
+	* inst/include/qlcal_RcppExports.h: Idem
+	* man/getName.Rd: Idem
+	* src/Makevars.in: Add xptr.cpp
+	* R/xptr.R: Minimal S3 wrapper
+	* R/dates.R: Moved two functions to xptr.R
+	* NAMESPACE: Additional exports
+
+2026-02-04  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/qlcal_as_wrap.h: Use inline throughout
+
+2026-01-13  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll micro version and date
+
+	* src/ql/*: Updated three files from QuantLib 1.41
+
+2026-01-05  Dirk Eddelbuettel  <edd@debian.org>
+
+	* .github/workflows/ci.yaml: Switch to actions/checkout@v6
+
+2025-10-27  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/calendars.cpp (QlCal::CalendarContainer::setCalendar): In the
+	case of an invalid calendar and reset, also store 'TARGET' id
+
 2025-10-14  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Release 0.0.17

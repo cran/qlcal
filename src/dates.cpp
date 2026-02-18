@@ -1,7 +1,7 @@
 
 //  QlCal -- R interface to QuantLib Calendars
 //
-//  Copyright (C) 2002 - 2021  Dirk Eddelbuettel <edd@debian.org>
+//  Copyright (C) 2002 - 2026  Dirk Eddelbuettel <edd@debian.org>
 //
 //  This file is part of QlCal
 //
@@ -28,50 +28,34 @@
 #include "qlcal_as_wrap.h"
 
 #include <boost/date_time/posix_time/conversion.hpp>
-
+#include <chrono>
 
 namespace ql = QuantLib;
 
 QlCal::CalendarContainer gblcal;
 
+// forward declarations for internal helper functions at bottom of file
+Rcpp::DateVector createDateVector(Rcpp::Nullable<Rcpp::DateVector> dates);
+ql::Calendar getCalendarInstance(Rcpp::Nullable<Rcpp::XPtr<QlCal::CalendarContainer>>);
+
 //' Set a calendar
 //'
-//' This function sets a calendar to the given market or country convention.
-//' Note that at present only the default \sQuote{TARGET} and \sQuote{UnitedStates}
-//' are supported.
+//' This function sets the default calendar to the given market or country convention.
+//' Note that additional calendar objects can be created with the \code{getCalendar}
+//' function.
 //'
 //' @title Set a calendar
 //' @param calstr A character variable containing the market for which a calendar
 //' is to be set
 //' @return Nothing is returned but the global state is changed
+//' @seealso \code{getCalendar}
 //' @examples
-//' setCalendar("UnitedStates")
+//' setCalendar("UnitedStates/NYSE")  # sets global calendar
+//' setCalendar("Canada/TSX")         # reset global calendar
 // [[Rcpp::export]]
 void setCalendar(std::string calstr) {
     gblcal.setCalendar(calstr);
 }
-
-//' Get calendar name or id
-//'
-//' This function returns the corresponding (full) name (as in the underlying
-//' implementationclass) or identification string (used to select it) of the
-//' current calendar.
-//'
-//' @title Get calendar name, or id
-//' @return A string with the calendar name
-//' @examples
-//' getName()
-// [[Rcpp::export]]
-std::string getName() {
-    return gblcal.getName();
-}
-
-//' @rdname getName
-// [[Rcpp::export]]
-std::string getId() {
-    return gblcal.getId();
-}
-
 
 //' Advance a date to the next business day plus an optional shift
 //'
@@ -93,14 +77,16 @@ std::string getId() {
 //' \dQuote{ModifiedPreceding}, \dQuote{Unadjusted},
 //' \dQuote{HalfMonthModifiedFollowing} and \dQuote{Nearest}.
 //' @param eom An optional boolean toggle whether end-of-month is to be respected
+//' @param xp An optional calendar object, if missing the default instance is used
 //' @return The advanced date is returned
 //' @examples
 //' advanceDate(Sys.Date(), 2)  # today to the next biz day, plus 2 days
 //' @seealso The \code{advanceUnits} functions offers the same functionality from R.
 // [[Rcpp::export]]
 Rcpp::Date advanceDate(Rcpp::Date rd, int days=0, const std::string& unit = "Days",
-                       const std::string& bdc = "Following", bool eom=false) {
-    ql::Calendar cal = gblcal.getCalendar();
+                       const std::string& bdc = "Following", bool eom=false,
+                       Rcpp::Nullable<Rcpp::XPtr<QlCal::CalendarContainer>> xp = R_NilValue) {
+    ql::Calendar cal = getCalendarInstance(xp);
     ql::Date d = Rcpp::as<ql::Date>(rd);
     ql::BusinessDayConvention bdcval = getBusinessDayConvention(bdc);
     ql::TimeUnit tuval = getTimeUnit(unit);
@@ -115,16 +101,21 @@ Rcpp::Date advanceDate(Rcpp::Date rd, int days=0, const std::string& unit = "Day
 //' date is a business day in the currently active (global) calendar.
 //'
 //' @title Test for business days
-//' @param dates A Date vector with dates to be examined
+//' @param dates An optional Date vector with dates to be examined, if missing the
+//' current day is used
+//' @param xp An optional calendar object, if missing the default instance is used
 //' @return A logical vector indicating which dates are business days
 //' @examples
 //' isBusinessDay(Sys.Date()+0:6)
 // [[Rcpp::export]]
-Rcpp::LogicalVector isBusinessDay(Rcpp::DateVector dates) {
-    ql::Calendar cal = gblcal.getCalendar();
-    int n = dates.size();
+Rcpp::LogicalVector isBusinessDay(Rcpp::Nullable<Rcpp::DateVector> dates = R_NilValue,
+                                  Rcpp::Nullable<Rcpp::XPtr<QlCal::CalendarContainer>> xp = R_NilValue) {
+    Rcpp::DateVector datesvec = createDateVector(dates);
+    ql::Calendar cal = getCalendarInstance(xp);
+
+    int n = datesvec.size();
     Rcpp::LogicalVector bizdays(n);
-    std::vector<ql::Date> dv = Rcpp::as< std::vector<ql::Date> >(dates);
+    std::vector<ql::Date> dv = Rcpp::as< std::vector<ql::Date> >(datesvec);
     for (auto i=0; i<n; i++) {
         bizdays[i] = cal.isBusinessDay(dv[i]);
     }
@@ -138,16 +129,21 @@ Rcpp::LogicalVector isBusinessDay(Rcpp::DateVector dates) {
 //' date is a holiday in the currently active (global) calendar.
 //'
 //' @title Test for holidays
-//' @param dates A Date vector with dates to be examined
+//' @param dates An optional Date vector with dates to be examined, if missing the
+//' current day is used
+//' @param xp An optional calendar object, if missing the default instance is used
 //' @return A logical vector indicating which dates are holidays
 //' @examples
 //' isHoliday(Sys.Date()+0:6)
 // [[Rcpp::export]]
-Rcpp::LogicalVector isHoliday(Rcpp::DateVector dates) {
-    ql::Calendar cal = gblcal.getCalendar();
-    int n = dates.size();
+Rcpp::LogicalVector isHoliday(Rcpp::Nullable<Rcpp::DateVector> dates = R_NilValue,
+                              Rcpp::Nullable<Rcpp::XPtr<QlCal::CalendarContainer>> xp = R_NilValue) {
+    Rcpp::DateVector datesvec = createDateVector(dates);
+    ql::Calendar cal = getCalendarInstance(xp);
+
+    int n = datesvec.size();
     Rcpp::LogicalVector holdays(n);
-    std::vector<ql::Date> dv = Rcpp::as< std::vector<ql::Date> >(dates);
+    std::vector<ql::Date> dv = Rcpp::as< std::vector<ql::Date> >(datesvec);
     for (auto i=0; i<n; i++) {
         holdays[i] = !cal.isBusinessDay(dv[i]);
     }
@@ -161,16 +157,21 @@ Rcpp::LogicalVector isHoliday(Rcpp::DateVector dates) {
 //' date is a weekend in the currently active (global) calendar.
 //'
 //' @title Test for weekends
-//' @param dates A Date vector with dates to be examined
+//' @param dates An optional Date vector with dates to be examined, if missing the
+//' current day is used
+//' @param xp An optional calendar object, if missing the default instance is used
 //' @return A logical vector indicating which dates are weekends
 //' @examples
 //' isWeekend(Sys.Date()+0:6)
 // [[Rcpp::export]]
-Rcpp::LogicalVector isWeekend(Rcpp::DateVector dates) {
-    ql::Calendar cal = gblcal.getCalendar();
-    int n = dates.size();
+Rcpp::LogicalVector isWeekend(Rcpp::Nullable<Rcpp::DateVector> dates = R_NilValue,
+                              Rcpp::Nullable<Rcpp::XPtr<QlCal::CalendarContainer>> xp = R_NilValue) {
+    Rcpp::DateVector datesvec = createDateVector(dates);
+    ql::Calendar cal = getCalendarInstance(xp);
+
+    int n = datesvec.size();
     Rcpp::LogicalVector weekends(n);
-    std::vector<ql::Date> dv = Rcpp::as< std::vector<ql::Date> >(dates);
+    std::vector<ql::Date> dv = Rcpp::as< std::vector<ql::Date> >(datesvec);
     for (auto i=0; i<n; i++) {
         weekends[i] = cal.isWeekend(dv[i].weekday());
     }
@@ -184,16 +185,21 @@ Rcpp::LogicalVector isWeekend(Rcpp::DateVector dates) {
 //' date is at the end of a month in the currently active (global) calendar.
 //'
 //' @title Test for end-of-month
-//' @param dates A Date vector with dates to be examined
+//' @param dates An optional Date vector with dates to be examined, if missing the
+//' current day is used
+//' @param xp An optional calendar object, if missing the default instance is used
 //' @return A logical vector indicating which dates are end-of-month
 //' @examples
 //' isEndOfMonth(Sys.Date()+0:6)
 // [[Rcpp::export]]
-Rcpp::LogicalVector isEndOfMonth(Rcpp::DateVector dates) {
-    ql::Calendar cal = gblcal.getCalendar();
-    int n = dates.size();
+Rcpp::LogicalVector isEndOfMonth(Rcpp::Nullable<Rcpp::DateVector> dates = R_NilValue,
+                                 Rcpp::Nullable<Rcpp::XPtr<QlCal::CalendarContainer>> xp = R_NilValue) {
+    Rcpp::DateVector datesvec = createDateVector(dates);
+    ql::Calendar cal = getCalendarInstance(xp);
+
+    int n = datesvec.size();
     Rcpp::LogicalVector eom(n);
-    std::vector<ql::Date> dv = Rcpp::as< std::vector<ql::Date> >(dates);
+    std::vector<ql::Date> dv = Rcpp::as< std::vector<ql::Date> >(datesvec);
     for (auto i=0; i<n; i++) {
         eom[i] = cal.isEndOfMonth(dv[i]);
     }
@@ -209,12 +215,14 @@ Rcpp::LogicalVector isEndOfMonth(Rcpp::DateVector dates) {
 //'
 //' @title Compute end-of-month
 //' @param dates A Date vector with dates
+//' @param xp An optional calendar object, if missing the default instance is used
 //' @return A Date vector with dates which are end-of-month
 //' @examples
 //' getEndOfMonth(Sys.Date()+0:6)
 // [[Rcpp::export]]
-Rcpp::DateVector getEndOfMonth(Rcpp::DateVector dates) {
-    ql::Calendar cal = gblcal.getCalendar();
+Rcpp::DateVector getEndOfMonth(Rcpp::DateVector dates,
+                               Rcpp::Nullable<Rcpp::XPtr<QlCal::CalendarContainer>> xp = R_NilValue) {
+    ql::Calendar cal = getCalendarInstance(xp);
     int n = dates.size();
     Rcpp::DateVector ndates(n);
     std::vector<ql::Date> dv = Rcpp::as< std::vector<ql::Date> >(dates);
@@ -226,30 +234,32 @@ Rcpp::DateVector getEndOfMonth(Rcpp::DateVector dates) {
 
 //' @rdname adjust
 // [[Rcpp::export]]
-Rcpp::DateVector adjust_cpp(Rcpp::DateVector dates, int bdc=0) {
-    ql::Calendar cal = gblcal.getCalendar();
+Rcpp::DateVector adjust_cpp(Rcpp::DateVector dates, int bdc=0,
+                            Rcpp::Nullable<Rcpp::XPtr<QlCal::CalendarContainer>> cal = R_NilValue) {
+    ql::Calendar calinst = getCalendarInstance(cal);
     ql::BusinessDayConvention bdcval = getBusinessDayConvention(bdc);
     int n = dates.size();
     Rcpp::DateVector adjusted(n);
     std::vector<ql::Date> dv = Rcpp::as< std::vector<ql::Date> >(dates);
     for (auto i=0; i<n; i++) {
-        adjusted[i] = Rcpp::qlDate2Rcpp(cal.adjust(dv[i], bdcval));
+        adjusted[i] = Rcpp::qlDate2Rcpp(calinst.adjust(dv[i], bdcval));
     }
     return adjusted;
 }
 
 //' @rdname advanceUnits
 // [[Rcpp::export]]
-Rcpp::DateVector advanceUnits_cpp(Rcpp::DateVector dates, int n, int unit,
-                                  int bdc, bool emr) {
-    ql::Calendar cal = gblcal.getCalendar();
+Rcpp::DateVector advanceUnits_cpp(Rcpp::DateVector dates, int n, int unit, int bdc, bool emr,
+                                  Rcpp::Nullable<Rcpp::XPtr<QlCal::CalendarContainer>>
+                                  cal = R_NilValue) {
+    ql::Calendar calinst = getCalendarInstance(cal);
     ql::BusinessDayConvention bdc_ = getBusinessDayConvention(bdc);
     ql::TimeUnit tu = getTimeUnit(unit);
     int ndays = dates.size();
     Rcpp::DateVector adv(ndays);
     std::vector<ql::Date> odv = Rcpp::as< std::vector<ql::Date> >(dates);
     for (auto i=0; i<ndays; i++) {
-        ql::Date nd = cal.advance(odv[i], n, tu, bdc_, (emr == 1) ? true : false);
+        ql::Date nd = calinst.advance(odv[i], n, tu, bdc_, (emr == 1) ? true : false);
         adv[i] = Rcpp::qlDate2Rcpp(nd);
     }
     return adv;
@@ -269,14 +279,17 @@ Rcpp::DateVector advanceUnits_cpp(Rcpp::DateVector dates, int n, int unit,
 //' is \sQuote{TRUE}
 //' @param includeLast A boolean indicating if the end date is included, default
 //' is \sQuote{FALSE}
+//' @param xp An optional calendar object, if missing the default instance is used
 //' @return A numeric vector with the number of business dates between the
 //' corresponding date pair
 //' @examples
 //' businessDaysBetween(Sys.Date() + 0:6, Sys.Date() + 3 + 0:6)
 // [[Rcpp::export]]
 Rcpp::NumericVector businessDaysBetween(Rcpp::DateVector from, Rcpp::DateVector to,
-                                        bool includeFirst=true, bool includeLast=false) {
-    ql::Calendar cal = gblcal.getCalendar();
+                                        bool includeFirst=true, bool includeLast=false,
+                                        Rcpp::Nullable<Rcpp::XPtr<QlCal::CalendarContainer>>
+                                        xp = R_NilValue) {
+    ql::Calendar cal = getCalendarInstance(xp);
     int n = from.size();
     Rcpp::NumericVector between(n);
     std::vector<ql::Date> fdv = Rcpp::as< std::vector<ql::Date> >(from);
@@ -297,12 +310,14 @@ Rcpp::NumericVector businessDaysBetween(Rcpp::DateVector from, Rcpp::DateVector 
 //' @param to A Date object with the end date
 //' @param includeWeekends A boolean indicating if weekends should be included, default
 //' is \sQuote{FALSE}
+//' @param xp An optional calendar object, if missing the default instance is used
 //' @return A Date vector with holidays or business days between the given dates
 //' @examples
 //' getHolidays(Sys.Date(), Sys.Date() + 30)
 // [[Rcpp::export]]
-Rcpp::DateVector getHolidays(Rcpp::Date from, Rcpp::Date to, bool includeWeekends=false) {
-    ql::Calendar cal = gblcal.getCalendar();
+Rcpp::DateVector getHolidays(Rcpp::Date from, Rcpp::Date to, bool includeWeekends=false,
+                             Rcpp::Nullable<Rcpp::XPtr<QlCal::CalendarContainer>> xp = R_NilValue) {
+    ql::Calendar cal = getCalendarInstance(xp);
     std::vector<ql::Date> holidays = cal.holidayList(Rcpp::as<ql::Date>(from),
                                                      Rcpp::as<ql::Date>(to), includeWeekends);
     int n = holidays.size();
@@ -315,8 +330,10 @@ Rcpp::DateVector getHolidays(Rcpp::Date from, Rcpp::Date to, bool includeWeekend
 
 //' @rdname getHolidays
 // [[Rcpp::export]]
-Rcpp::DateVector getBusinessDays(Rcpp::Date from, Rcpp::Date to) {
-    ql::Calendar cal = gblcal.getCalendar();
+Rcpp::DateVector getBusinessDays(Rcpp::Date from, Rcpp::Date to,
+                                 Rcpp::Nullable<Rcpp::XPtr<QlCal::CalendarContainer>>
+                                 xp = R_NilValue) {
+    ql::Calendar cal = getCalendarInstance(xp);
     std::vector<ql::Date> holidays = cal.businessDayList(Rcpp::as<ql::Date>(from),
                                                          Rcpp::as<ql::Date>(to));
     int n = holidays.size();
@@ -325,4 +342,31 @@ Rcpp::DateVector getBusinessDays(Rcpp::Date from, Rcpp::Date to) {
         dv[i] = Rcpp::qlDate2Rcpp(holidays[i]);
     }
     return dv;
+}
+
+// Internal helper: We either instantiate dates if given or use a default
+Rcpp::DateVector createDateVector(Rcpp::Nullable<Rcpp::DateVector> dates) {
+    if (dates.isNull()) {       // no argument given so create length one vector of current date
+        // C++20   const auto time_pt_utc{std::chrono::system_clock::now()};
+        //         const auto current_local_time{std::chrono::current_zone()->to_local(time_pt_utc)};
+        // before C++20 it is UTC
+        //         const auto n = std::chrono::system_clock::now();
+        //         const auto d = std::chrono::duration_cast<std::chrono::hours>(n.time_since_epoch()).count();
+        //         datesvec = Rcpp::DateVector(Rcpp::NumericVector{d/24.0}); // C++20 will give us chrono::days
+        // so we cheat and ask R to not fall for timezone issues
+        // TODO: once R 4.6.0 is out and we have C++20 we can conditionally use it here
+        Rcpp::Function f = Rcpp::Function("Sys.Date");
+        return f();
+    } else {
+        return Rcpp::DateVector(dates); // instantiate from Nullable wrapper
+    }
+}
+// Internal helper: We either instantiate cal or use default global one
+ql::Calendar getCalendarInstance(Rcpp::Nullable<Rcpp::XPtr<QlCal::CalendarContainer>> xp) {
+    if (xp.isNotNull()) {
+        Rcpp::XPtr<QlCal::CalendarContainer> p = Rcpp::XPtr<QlCal::CalendarContainer>(xp);
+        return p->getCalendar();
+    } else {
+        return gblcal.getCalendar();
+    }
 }

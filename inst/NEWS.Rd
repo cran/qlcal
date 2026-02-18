@@ -3,6 +3,24 @@
 \newcommand{\ghpr}{\href{https://github.com/qlcal/qlcal-r/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/qlcal/qlcal-r/issues/#1}{##1}}
 
+\section{Changes in version 0.1.0 (2026-02-18)}{
+  \itemize{
+    \item Invalid calendars return id \sQuote{TARGET} now
+    \item Calendar object can be created on the fly and passed to
+    the date-calculating functions; if missing global one used
+    \item For several functions a missing date object now implies
+    computation on the current date, e.g. \code{isBusinessDay()}
+  }
+}
+
+\section{Changes in version 0.0.17 (2025-10-14)}{
+  \itemize{
+    \item Synchronized with QuantLib 1.40 released today
+    \item Calendar updates for Singapore
+    \item URL update in README.md
+  }
+}
+
 \section{Changes in version 0.0.16 (2025-07-23)}{
   \itemize{
     \item Synchronized with QuantLib 1.39 released today

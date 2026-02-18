@@ -5,9 +5,9 @@
 \alias{getBusinessDays}
 \title{Compute holidays or business days}
 \usage{
-getHolidays(from, to, includeWeekends = FALSE)
+getHolidays(from, to, includeWeekends = FALSE, xp = NULL)
 
-getBusinessDays(from, to)
+getBusinessDays(from, to, xp = NULL)
 }
 \arguments{
 \item{from}{A Date object with the start date}
@@ -16,6 +16,8 @@ getBusinessDays(from, to)
 
 \item{includeWeekends}{A boolean indicating if weekends should be included, default
 is \sQuote{FALSE}}
+
+\item{xp}{An optional calendar object, if missing the default instance is used}
 }
 \value{
 A Date vector with holidays or business days between the given dates

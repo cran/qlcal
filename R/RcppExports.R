@@ -3,37 +3,20 @@
 
 #' Set a calendar
 #'
-#' This function sets a calendar to the given market or country convention.
-#' Note that at present only the default \sQuote{TARGET} and \sQuote{UnitedStates}
-#' are supported.
+#' This function sets the default calendar to the given market or country convention.
+#' Note that additional calendar objects can be created with the \code{getCalendar}
+#' function.
 #'
 #' @title Set a calendar
 #' @param calstr A character variable containing the market for which a calendar
 #' is to be set
 #' @return Nothing is returned but the global state is changed
+#' @seealso \code{getCalendar}
 #' @examples
-#' setCalendar("UnitedStates")
+#' setCalendar("UnitedStates/NYSE")  # sets global calendar
+#' setCalendar("Canada/TSX")         # reset global calendar
 setCalendar <- function(calstr) {
     invisible(.Call(`_qlcal_setCalendar`, calstr))
-}
-
-#' Get calendar name or id
-#'
-#' This function returns the corresponding (full) name (as in the underlying
-#' implementationclass) or identification string (used to select it) of the
-#' current calendar.
-#'
-#' @title Get calendar name, or id
-#' @return A string with the calendar name
-#' @examples
-#' getName()
-getName <- function() {
-    .Call(`_qlcal_getName`)
-}
-
-#' @rdname getName
-getId <- function() {
-    .Call(`_qlcal_getId`)
 }
 
 #' Advance a date to the next business day plus an optional shift
@@ -56,12 +39,13 @@ getId <- function() {
 #' \dQuote{ModifiedPreceding}, \dQuote{Unadjusted},
 #' \dQuote{HalfMonthModifiedFollowing} and \dQuote{Nearest}.
 #' @param eom An optional boolean toggle whether end-of-month is to be respected
+#' @param xp An optional calendar object, if missing the default instance is used
 #' @return The advanced date is returned
 #' @examples
 #' advanceDate(Sys.Date(), 2)  # today to the next biz day, plus 2 days
 #' @seealso The \code{advanceUnits} functions offers the same functionality from R.
-advanceDate <- function(rd, days = 0L, unit = "Days", bdc = "Following", eom = FALSE) {
-    .Call(`_qlcal_advanceDate`, rd, days, unit, bdc, eom)
+advanceDate <- function(rd, days = 0L, unit = "Days", bdc = "Following", eom = FALSE, xp = NULL) {
+    .Call(`_qlcal_advanceDate`, rd, days, unit, bdc, eom, xp)
 }
 
 #' Test a vector of dates for business day
@@ -71,12 +55,14 @@ advanceDate <- function(rd, days = 0L, unit = "Days", bdc = "Following", eom = F
 #' date is a business day in the currently active (global) calendar.
 #'
 #' @title Test for business days
-#' @param dates A Date vector with dates to be examined
+#' @param dates An optional Date vector with dates to be examined, if missing the
+#' current day is used
+#' @param xp An optional calendar object, if missing the default instance is used
 #' @return A logical vector indicating which dates are business days
 #' @examples
 #' isBusinessDay(Sys.Date()+0:6)
-isBusinessDay <- function(dates) {
-    .Call(`_qlcal_isBusinessDay`, dates)
+isBusinessDay <- function(dates = NULL, xp = NULL) {
+    .Call(`_qlcal_isBusinessDay`, dates, xp)
 }
 
 #' Test a vector of dates for holiday
@@ -86,12 +72,14 @@ isBusinessDay <- function(dates) {
 #' date is a holiday in the currently active (global) calendar.
 #'
 #' @title Test for holidays
-#' @param dates A Date vector with dates to be examined
+#' @param dates An optional Date vector with dates to be examined, if missing the
+#' current day is used
+#' @param xp An optional calendar object, if missing the default instance is used
 #' @return A logical vector indicating which dates are holidays
 #' @examples
 #' isHoliday(Sys.Date()+0:6)
-isHoliday <- function(dates) {
-    .Call(`_qlcal_isHoliday`, dates)
+isHoliday <- function(dates = NULL, xp = NULL) {
+    .Call(`_qlcal_isHoliday`, dates, xp)
 }
 
 #' Test a vector of dates for weekends
@@ -101,12 +89,14 @@ isHoliday <- function(dates) {
 #' date is a weekend in the currently active (global) calendar.
 #'
 #' @title Test for weekends
-#' @param dates A Date vector with dates to be examined
+#' @param dates An optional Date vector with dates to be examined, if missing the
+#' current day is used
+#' @param xp An optional calendar object, if missing the default instance is used
 #' @return A logical vector indicating which dates are weekends
 #' @examples
 #' isWeekend(Sys.Date()+0:6)
-isWeekend <- function(dates) {
-    .Call(`_qlcal_isWeekend`, dates)
+isWeekend <- function(dates = NULL, xp = NULL) {
+    .Call(`_qlcal_isWeekend`, dates, xp)
 }
 
 #' Test a vector of dates for end-of-month
@@ -116,12 +106,14 @@ isWeekend <- function(dates) {
 #' date is at the end of a month in the currently active (global) calendar.
 #'
 #' @title Test for end-of-month
-#' @param dates A Date vector with dates to be examined
+#' @param dates An optional Date vector with dates to be examined, if missing the
+#' current day is used
+#' @param xp An optional calendar object, if missing the default instance is used
 #' @return A logical vector indicating which dates are end-of-month
 #' @examples
 #' isEndOfMonth(Sys.Date()+0:6)
-isEndOfMonth <- function(dates) {
-    .Call(`_qlcal_isEndOfMonth`, dates)
+isEndOfMonth <- function(dates = NULL, xp = NULL) {
+    .Call(`_qlcal_isEndOfMonth`, dates, xp)
 }
 
 #' Compute a vector of dates with end-of-month
@@ -132,21 +124,22 @@ isEndOfMonth <- function(dates) {
 #'
 #' @title Compute end-of-month
 #' @param dates A Date vector with dates
+#' @param xp An optional calendar object, if missing the default instance is used
 #' @return A Date vector with dates which are end-of-month
 #' @examples
 #' getEndOfMonth(Sys.Date()+0:6)
-getEndOfMonth <- function(dates) {
-    .Call(`_qlcal_getEndOfMonth`, dates)
+getEndOfMonth <- function(dates, xp = NULL) {
+    .Call(`_qlcal_getEndOfMonth`, dates, xp)
 }
 
 #' @rdname adjust
-adjust_cpp <- function(dates, bdc = 0L) {
-    .Call(`_qlcal_adjust_cpp`, dates, bdc)
+adjust_cpp <- function(dates, bdc = 0L, cal = NULL) {
+    .Call(`_qlcal_adjust_cpp`, dates, bdc, cal)
 }
 
 #' @rdname advanceUnits
-advanceUnits_cpp <- function(dates, n, unit, bdc, emr) {
-    .Call(`_qlcal_advanceUnits_cpp`, dates, n, unit, bdc, emr)
+advanceUnits_cpp <- function(dates, n, unit, bdc, emr, cal = NULL) {
+    .Call(`_qlcal_advanceUnits_cpp`, dates, n, unit, bdc, emr, cal)
 }
 
 #' Compute the number of business days between dates
@@ -162,12 +155,13 @@ advanceUnits_cpp <- function(dates, n, unit, bdc, emr) {
 #' is \sQuote{TRUE}
 #' @param includeLast A boolean indicating if the end date is included, default
 #' is \sQuote{FALSE}
+#' @param xp An optional calendar object, if missing the default instance is used
 #' @return A numeric vector with the number of business dates between the
 #' corresponding date pair
 #' @examples
 #' businessDaysBetween(Sys.Date() + 0:6, Sys.Date() + 3 + 0:6)
-businessDaysBetween <- function(from, to, includeFirst = TRUE, includeLast = FALSE) {
-    .Call(`_qlcal_businessDaysBetween`, from, to, includeFirst, includeLast)
+businessDaysBetween <- function(from, to, includeFirst = TRUE, includeLast = FALSE, xp = NULL) {
+    .Call(`_qlcal_businessDaysBetween`, from, to, includeFirst, includeLast, xp)
 }
 
 #' Compute the number of holidays (or business days) between two dates
@@ -180,16 +174,55 @@ businessDaysBetween <- function(from, to, includeFirst = TRUE, includeLast = FAL
 #' @param to A Date object with the end date
 #' @param includeWeekends A boolean indicating if weekends should be included, default
 #' is \sQuote{FALSE}
+#' @param xp An optional calendar object, if missing the default instance is used
 #' @return A Date vector with holidays or business days between the given dates
 #' @examples
 #' getHolidays(Sys.Date(), Sys.Date() + 30)
-getHolidays <- function(from, to, includeWeekends = FALSE) {
-    .Call(`_qlcal_getHolidays`, from, to, includeWeekends)
+getHolidays <- function(from, to, includeWeekends = FALSE, xp = NULL) {
+    .Call(`_qlcal_getHolidays`, from, to, includeWeekends, xp)
 }
 
 #' @rdname getHolidays
-getBusinessDays <- function(from, to) {
-    .Call(`_qlcal_getBusinessDays`, from, to)
+getBusinessDays <- function(from, to, xp = NULL) {
+    .Call(`_qlcal_getBusinessDays`, from, to, xp)
+}
+
+#' Get new calendar
+#'
+#' This function returns an external pointer, classed as small S3 helper class,
+#' to a new QuantLib Calendar object identified by the calendar string.
+#'
+#' @title Get new calendar objectb
+#' @param calstr Character variable identifying desired calendar
+#' @return A external pointer classed as S3 class 'qlcalendar'
+#' @seealso \code{setCalendar}
+#' @examples
+#' xp <- getCalendar("UnitedStates/NYSE")
+#' xp  # invokes the print method
+#' xp2 <- getCalendar("Canada/TSX")
+#' xp2 # invokes the print method
+getCalendar <- function(calstr) {
+    .Call(`_qlcal_getCalendar`, calstr)
+}
+
+#' Get calendar name or id
+#'
+#' This function returns the corresponding (full) name (as in the underlying
+#' implementationclass) or identification string (used to select it) of the
+#' current calendar.
+#'
+#' @title Get calendar name, or id
+#' @param xp A calendar object created via \code{getCalendar}
+#' @return A string with the calendar name
+#' @examples
+#' getName()
+getName <- function(xp = NULL) {
+    .Call(`_qlcal_getName`, xp)
+}
+
+#' @rdname getName
+getId <- function(xp = NULL) {
+    .Call(`_qlcal_getId`, xp)
 }
 
 # Register entry points for exported C++ functions

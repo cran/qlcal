@@ -13,5 +13,7 @@ export("adjust",
        "isWeekend",
        "getId",
        "getName",
-       "setCalendar")
+       "setCalendar",
+       "getCalendar")
+S3method("print", "qlcalendar")
 importFrom("Rcpp", "evalCpp")
