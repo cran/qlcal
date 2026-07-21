@@ -1,18 +1,18 @@
-4cab547f40a68b10d0ae6ac5b52e614a *ChangeLog
-42991616608b999c0ae7343b7a52fb68 *DESCRIPTION
+33480a3c9d8e13d42c5a418c9f3165d7 *ChangeLog
+c81dbac9746f74cf1b04709ce86db184 *DESCRIPTION
 f263951a9f2a27672a11d644de859837 *NAMESPACE
 933221e50672741c6e85e1d2c9cd4256 *R/RcppExports.R
 3f65cd9b72d3ab937377c7f50199a7ea *R/calendars.R
 74093c7302eb090720b1a8b43cadeef2 *R/dates.R
 c0bb96f2a2667c69464ff58c1bdaeb75 *R/xptr.R
 089d7a75b996486f442c8de08219d33f *README.md
-37900a8d658fc539014cd0f5b3652b52 *build/partial.rdb
+8170265d39261dac037fd7cc14157589 *build/partial.rdb
 d0ad2b7c8669b8328a9dbe39d406b124 *cleanup
 5c4563e8ace8f9d85fa3d13e72e84723 *configure
 5a04e89e816daea50eb5b25b98dafc41 *configure.win
 3bb63f3c7cc2d641bfc47420787b47a0 *inst/AUTHORS
 a569a84ea46bbc872bed84d6ebf835e1 *inst/COPYRIGHTS
-da2aeb8a8eb3b8809fbf57f607a0ea52 *inst/NEWS.Rd
+45caa243c95ac7f403c14501d1aa4c33 *inst/NEWS.Rd
 49bdbe036c4dea6bf3a90da6aca3122e *inst/examples/allUScalendars.R
 aa33240a762a7b2c5c5af2711efb825c *inst/include/qlcal.h
 c985064e19034a86aed6f7d1048cf7d6 *inst/include/qlcal_RcppExports.h
@@ -34,7 +34,7 @@ a136ec7794a841eaa89fdab4ae495640 *man/getName.Rd
 51f78b26d5a71e137a36c0b9da567b32 *man/isWeekend.Rd
 929d6c8fc77dd218852d3cf30cd946a4 *man/qlcal-package.Rd
 ec63feb0e1e25b24eaf7d3b00da62fab *man/setCalendar.Rd
-f3947e382a64c189f6392a475750b202 *src/Makevars.in
+c09a96044f8546225e9d30436ba98765 *src/Makevars.in
 d8b44e6177d95714e12667a0235e82fc *src/Makevars.win.in
 357af7ccd53991d69ec475019e9f9cef *src/RcppExports.cpp
 2961b97f2950ee01daad51a3093456c9 *src/calendars.cpp
@@ -97,7 +97,7 @@ ca996ba4fd3af90ade1b7ad6fb4f0d89 *src/ql/time/calendars/iceland.hpp
 b10711035a5f0a25ad0eb83eacf0b9a4 *src/ql/time/calendars/india.hpp
 8fd1f930947c1a03c95ba0f47521c4a2 *src/ql/time/calendars/indonesia.cpp
 65cb260f053ae4860a35c321bcf4a82b *src/ql/time/calendars/indonesia.hpp
-4a7afedcda8a576435a16939a130dbe0 *src/ql/time/calendars/islamicholidays.cpp
+92954ea2d65bb3a1d993f9b6f9f97ccd *src/ql/time/calendars/islamicholidays.cpp
 91757d576bd9dffe1e8735afdb5de378 *src/ql/time/calendars/islamicholidays.hpp
 4ae7ed27bb556dd3ebfb22d53708367b *src/ql/time/calendars/israel.cpp
 65ea608cd9cfbd3d01ffa1237039a6d6 *src/ql/time/calendars/israel.hpp
@@ -183,4 +183,4 @@ ade7b4873e49446fa86eaa8b24ffcdcd *src/ql/utilities/observablevalue.hpp
 3800b4a6acb099fdde0dd2137c59221a *src/utils.cpp
 85606df5f85e20c38b45b708f4b6b626 *src/xptr.cpp
 4895b3e2cfdc08070d75927c68d3c3bf *tests/calendars.R
-e92795489054d5284743bb83161a9e56 *tools/configure.R
+5227238aa4f949421d033e58b98fdece *tools/configure.R
