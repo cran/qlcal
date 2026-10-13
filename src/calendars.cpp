@@ -150,27 +150,38 @@ void QlCal::CalendarContainer::setCalendar(const std::string txt = "TARGET")  {
         } else if (txt == "India") {
             p_cal.reset(new ql::India());
 
-        } else if (txt == "Indonesia") {
-            p_cal.reset(new ql::Indonesia());
+        } else if (txt == "Indonesia" ||
+                   txt == "Indonesia/IDX" ||
+                   txt == "Indonesia::IDX") {
+            p_cal.reset(new ql::Indonesia(ql::Indonesia::IDX));
+        } else if (txt == "Indonesia/BEJ" ||
+                   txt == "Indonesia::BEJ") {
+            p_cal.reset(new ql::Indonesia(ql::Indonesia::BEJ));
+        } else if (txt == "Indonesia/JSX" ||
+                   txt == "Indonesia::JSX") {
+            p_cal.reset(new ql::Indonesia(ql::Indonesia::JSX));
 
         } else if (txt == "Israel" ||
-                   txt == "Israel/TASE") {
+                   txt == "Israel/TASE" ||
+                   txt == "Israel::TASE") {
             p_cal.reset(new ql::Israel(ql::Israel::TASE));
-        } else if (txt == "Israel/SHIR") {
+        } else if (txt == "Israel/SHIR" ||
+                   txt == "Israel::SHIR") {
             p_cal.reset(new ql::Israel(ql::Israel::SHIR));
-        } else if (txt == "Israel/Telbor") {
+        } else if (txt == "Israel/Telbor" ||
+                   txt == "Israel::Telbor") {
             p_cal.reset(new ql::Israel(ql::Israel::Telbor));
 
         } else if (txt == "Italy" ||
                    txt == "Italy/Settlement" ||
                    txt == "Italy::Settlement") {
             p_cal.reset(new ql::Italy(ql::Italy::Settlement));
-        } else if (txt == "Italy/Exchange" ||
-                   txt == "Italy::Exchange") {
-            p_cal.reset(new ql::Italy(ql::Italy::Exchange));
 
         } else if (txt == "Japan") {
             p_cal.reset(new ql::Japan());
+
+        } else if (txt == "Malaysia") {
+            p_cal.reset(new ql::Malaysia());
 
         } else if (txt == "Malta") {
             p_cal.reset(new ql::Malta());
@@ -182,9 +193,11 @@ void QlCal::CalendarContainer::setCalendar(const std::string txt = "TARGET")  {
             p_cal.reset(new ql::Montenegro());
 
         } else if (txt == "NewZealand" ||
-                   txt == "NewZealand/Wellington") {
+                   txt == "NewZealand/Wellington" ||
+                   txt == "NewZealand::Wellington") {
             p_cal.reset(new ql::NewZealand(ql::NewZealand::Wellington));
-        } else if (txt == "NewZealand/Auckland") {
+        } else if (txt == "NewZealand/Auckland" ||
+                   txt == "NewZealand::Auckland") {
             p_cal.reset(new ql::NewZealand(ql::NewZealand::Auckland));
 
         } else if (txt == "NorthMacedonia") {
@@ -198,14 +211,32 @@ void QlCal::CalendarContainer::setCalendar(const std::string txt = "TARGET")  {
                    txt == "NULL") {
             p_cal.reset(new ql::NullCalendar());
 
-        } else if (txt == "Poland") {
-            p_cal.reset(new ql::Poland());
+        } else if (txt == "Philippines") {
+            p_cal.reset(new ql::Philippines());
 
-        } else if (txt == "Romania") {
-            p_cal.reset(new ql::Romania());
+        } else if (txt == "Poland" ||
+                   txt == "Poland/Settlement" ||
+                   txt == "Poland::Settlement") {
+            p_cal.reset(new ql::Poland(ql::Poland::Settlement));
+        } else if (txt == "Poland/WSE" ||
+                   txt == "Poland::WSE") {
+            p_cal.reset(new ql::Poland(ql::Poland::WSE));
 
-        } else if (txt == "Russia") {
-            p_cal.reset(new ql::Russia());
+        } else if (txt == "Romania" ||
+                   txt == "Romania/BVB" ||
+                   txt == "Romania::BVB") {
+            p_cal.reset(new ql::Romania(ql::Romania::BVB));
+        } else if (txt == "Romania/Public" ||
+                   txt == "Romania::Public") {
+            p_cal.reset(new ql::Romania(ql::Romania::Public));
+
+        } else if (txt == "Russia" ||
+                   txt == "Russia/Settlement" ||
+                   txt == "Russia::Settlement") {
+            p_cal.reset(new ql::Russia(ql::Russia::Settlement));
+        } else if (txt == "Russia/MOEX" ||
+                   txt == "Russia::MOEX") {
+            p_cal.reset(new ql::Russia(ql::Russia::MOEX));
 
         } else if (txt == "SaudiArabia") {
             p_cal.reset(new ql::SaudiArabia());
